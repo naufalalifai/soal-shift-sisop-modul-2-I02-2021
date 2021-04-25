@@ -6,6 +6,81 @@
 - Fitriana Zahirah Tsabit (05111942000011)
 
 ## Question 1:
+In number 1, we find it difficult to produce the desired result
+
+but to clarify what we have done, we will explain the code that we have written
+
+	time_t my_time;
+	struct tm * timeinfo;
+
+	int date(int surp){
+    	int hour = 22;
+    	if(surp == 1) hour = 22-6;
+
+    	time (&my_time);
+    	timeinfo = localtime (&my_time);
+    	if(timeinfo->tm_mday == 9 && timeinfo->tm_mon == 4 && timeinfo->tm_hour == hour && timeinfo->tm_min == 22){
+    	return 1; }
+	return 0;
+	}
+
+The code above function to set the time as our localtime then we give some parameter so it can be the preparation session and the surprise session for stevany.
+
+Below is to execute some argument with wait so the process could run 2 processes in 1 program :
+
+	void execute(char **args){
+	int pid = fork();
+	int status;
+	if(pid == 0)
+	{
+	execvp(args[0],args);
+	}
+	while(wait(&status) > 0);
+	}
+
+then we declare the arguments that will be executed : 
+
+	char *folder[3] = {"Musyik/", "Fyim/", "Pyoto/"};
+	char *link[3] = {"https://drive.google.com/uc?id=1ZG8nRBRPquhYXq_sISdsVcXx5VdEgi-J&export=download","https://drive.google.com/uc?id=1ktjGgDkL0nNpY-	vT7rT7O6ZI47Ke9xcp&export=download","https://drive.google.com/uc?id=1FsrAzb9B5ixooGUs0dGiBr-rC7TS9wTD&export=download"};
+	char *zipfiles[3] = {"Musyik.zip","Fyim.zip","Pyoto.zip"};
+	
+
+the date(1) indicates taht the process inside of this parameter will be the preparation program, then the download parameter is the parameter to make sure we haven't download any resources from the link that we want to download from. then if the 2 conditions are meet the requirements, the procces will make the directory
+
+	if(date(1) && download == 0){
+	for(int i = 0 ; i < 3 ; i++){
+	char *args[] = {"mkdir", folder[i], NULL};
+	execv("/bin/mkdir",args);
+	}
+	
+then after the process finished making the directory, we continue the process to download from the link. but it would be burdensome if we pay attention to the certificate of the web, so we use the --no-check-certificate from the web, and after we download we turn the folder into zip files
+
+	for(int j = 0 ; j < 3 ; j++){
+	if(fork() == 0){
+	char *argv[] = {"wget","-q","--no-check-certificate",link[j],"-O",zipfiles[j],NULL};
+	execv("/bin/wget",argv);
+	}
+	}
+	
+then we unzip the folder as the probem want us to do
+
+	for(int j = 0 ; j < 3 ; j++){
+	if(fork() == 0){
+	char *argv[] = {"unzip","-q",zipfiles[j],"-d","",NULL};
+	execv("/bin/unzip",argv);
+	}
+	}
+	
+after all this process have been finished, the download parameter will increase using download++
+then it will out from the process because the parameter wont satisfy the requirement again.
+
+
+
+
+
+
+
+
 
 ## Question 2:
 Loba works in a famous pet shop, one day he got a zip containing lots of pets photos and he was ordered to categorize the photos of these pets. Loba finds it difficult to do his work manually, moreover there is the possibility that he will be ordered to do the same thing multiple times. You are Loba's best friend and he is asking for your help to help with his work. 

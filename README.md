@@ -40,7 +40,7 @@ Unzip/extract pets.zip into petshop folder
 	  childchild = fork();
 	  if(childchild == 0) {
 		char *argv[] = {"unzip","/home/alifai/Downloads/pets.zip", "-d" , "/home/alifai/modul2/petshop", NULL};
-       		execv("/usr/bin/unzip", argv);
+       	execv("/usr/bin/unzip", argv);
 	  }
 		    
  Then, we need to delete unnecessary folders. To distinguish files and folders, we use `dirent.h` library.
